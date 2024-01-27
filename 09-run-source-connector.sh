@@ -5,6 +5,6 @@ if [ -z "$KAFKA_HOME" ]; then
 fi
 echo "KAFKA_HOME is set to $KAFKA_HOME"
 
-cp my-connector-project/target/my-first-connector-0.0.1-jar-with-dependencies.jar connector-jars/.
+cp my-connector-project/target/my-first-connectors-0.0.1-jar-with-dependencies.jar connector-jars/.
 
 $KAFKA_HOME/bin/connect-standalone.sh connect.properties source-connector.properties
