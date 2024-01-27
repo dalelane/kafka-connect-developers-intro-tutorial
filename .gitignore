@@ -1,0 +1,8 @@
+.DS_Store
+connector-jars/*.jar
+kafka_home
+my-connector-project/.settings
+my-connector-project/bin
+my-connector-project/target
+my-connector-project/.classpath
+my-connector-project/.project

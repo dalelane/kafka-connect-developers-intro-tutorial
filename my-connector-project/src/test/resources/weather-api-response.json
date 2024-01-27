@@ -1,0 +1,41 @@
+{
+    "location": {
+        "name": "Eastleigh",
+        "region": "Hampshire",
+        "country": "United Kingdom",
+        "lat": 51.03,
+        "lon": -1.4,
+        "tz_id": "Europe/London",
+        "localtime_epoch": 1706219129,
+        "localtime": "2024-01-25 21:45"
+    },
+    "current": {
+        "last_updated_epoch": 1706219100,
+        "last_updated": "2024-01-25 21:45",
+        "temp_c": 12.0,
+        "temp_f": 53.6,
+        "is_day": 0,
+        "condition": {
+            "text": "Light rain",
+            "icon": "//cdn.weatherapi.com/weather/64x64/night/296.png",
+            "code": 1183
+        },
+        "wind_mph": 15.0,
+        "wind_kph": 24.1,
+        "wind_degree": 210,
+        "wind_dir": "SSW",
+        "pressure_mb": 1020.0,
+        "pressure_in": 30.12,
+        "precip_mm": 0.01,
+        "precip_in": 0.0,
+        "humidity": 94,
+        "cloud": 100,
+        "feelslike_c": 9.5,
+        "feelslike_f": 49.1,
+        "vis_km": 8.0,
+        "vis_miles": 4.0,
+        "uv": 1.0,
+        "gust_mph": 24.7,
+        "gust_kph": 39.8
+    }
+}
