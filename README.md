@@ -2,6 +2,8 @@
 
 Skeleton project to help a Java developer create their first Kafka Connect connector.
 
+Video walkthrough of how to use this can be found at https://dalelane.co.uk/blog/?p=5052
+
 ## Setup a dev environment
 
 ```shell
