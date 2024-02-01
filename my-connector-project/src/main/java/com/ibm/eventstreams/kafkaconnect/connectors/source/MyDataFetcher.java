@@ -88,7 +88,9 @@ public class MyDataFetcher extends TimerTask {
             // only add the API response to the local cache if the
             //  the timestamp is later than the previous offset
             if (apiResponse.getEpochTimestamp() > offset) {
-                fetchedRecords.add(apiResponse);
+                synchronized (this) {
+                    fetchedRecords.add(apiResponse);
+                }
                 offset = apiResponse.getEpochTimestamp();
             }
             else {
