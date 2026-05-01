@@ -1,4 +1,5 @@
 .DS_Store
+.vscode/settings.json
 connector-jars/*.jar
 kafka_home
 my-connector-project/.settings
