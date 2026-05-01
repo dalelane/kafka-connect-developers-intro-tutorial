@@ -64,14 +64,17 @@ public class MyDataFetcher extends TimerTask {
     // epoch timestamp of the most recent API response
     private Long offset;
 
+    // metrics tracker for monitoring API usage
+    private final MyDataFetcherMetrics metrics;
 
 
-    public MyDataFetcher(AbstractConfig config, Long offset) {
+    public MyDataFetcher(AbstractConfig config, Long offset, MyDataFetcherMetrics metrics) {
         log.info("Creating a data fetcher starting from offset {}", offset);
 
         fetchedRecords = new TreeSet<>(new ResponseComparator());
         urlObj = getApiUrl(config);
         this.offset = offset;
+        this.metrics = metrics;
     }
 
 
@@ -82,8 +85,15 @@ public class MyDataFetcher extends TimerTask {
             // get the API response
             Reader reader = getApiReader();
 
-            // parse the API response into a Java object
+            // (metrics) record that we're about to call the API
+            metrics.recordApiCall();
+
+            // call the API and parse the response into a Java object
+            long startTime = System.nanoTime();
             Response apiResponse = apiResponseParser.fromJson(reader, Response.class);
+            long endTime = System.nanoTime();
+            // (metrics) record the API response time
+            metrics.recordApiCallSuccess(endTime - startTime);
 
             // only add the API response to the local cache if the
             //  the timestamp is later than the previous offset
@@ -95,10 +105,16 @@ public class MyDataFetcher extends TimerTask {
             }
             else {
                 log.debug("ignoring duplicate event {}", apiResponse.getCurrent().getLastUpdated());
+
+                // (metrics) record that we ignored an API call response
+                metrics.recordDuplicateResponseFiltered();
             }
         }
         catch (IOException e) {
             log.error("Failed to fetch API data", e);
+
+            // (metrics) record that an API call failed
+            metrics.recordApiCallFailure();
         }
     }
 

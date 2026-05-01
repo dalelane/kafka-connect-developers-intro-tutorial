@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 IBM Corp. All Rights Reserved.
+ * Copyright 2026 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,8 +63,17 @@ public class MySourceTask extends SourceTask {
         //  running instance of this connector
         Long offset = recordFactory.getPersistedOffset(getOffsetStorageReader());
 
+        // prepare metrics tracker that will emit metrics about API usage
+        MyDataFetcherMetrics metrics = new MyDataFetcherMetrics();
+        try {
+            metrics.initialize(context);
+        }
+        catch (NoSuchMethodError | NoClassDefFoundError e) {
+            log.info("Metrics support not available");
+        }
+
         // Helper class for calling the weather API
-        dataFetcher = new MyDataFetcher(config, offset);
+        dataFetcher = new MyDataFetcher(config, offset, metrics);
 
         // Set up timer to call the weather API at each poll interval
         fetchTimer = new Timer();
